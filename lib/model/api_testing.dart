@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:aqsa_muslim_prayer_assistant/model/districts_info/district.dart';
+import 'package:aqsa_muslim_prayer_assistant/model/districts_info/districts_info.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
 import 'package:aqsa_muslim_prayer_assistant/model/prayer_timings/prayer_timings.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class ApiTesting extends StatefulWidget {
@@ -17,42 +18,66 @@ class ApiTesting extends StatefulWidget {
 }
 
 class _ApiTestingState extends State<ApiTesting> {
-  late List data;
+  late Future<PrayerTimings> timingObject;
+  late Future<List<District>> districtObject;
 
-  Future<String> loadJsonData() async {
-    var jsonText = await rootBundle.loadString('assets/bd_district.json');
-    setState(() => data = json.decode(jsonText));
-    return 'success';
+  Future<List<District>> loadJsonData() async {
+    var jsonText = await rootBundle.loadString('assets/bd_districts.json');
+    var data = json.decode(jsonEncode(jsonText));
+    print(data);
+    DistrictsInfo districtsInfo = DistrictsInfo.fromJson(jsonDecode(data));
+    return districtsInfo.districts ?? [];
   }
 
   @override
   void initState() {
+    timingObject = fetchData();
+    districtObject = loadJsonData();
     super.initState();
-    loadJsonData();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<PrayerTimings> timingObject = fetchData();
     return Scaffold(
-      body: FutureBuilder<PrayerTimings>(
-          future: timingObject,
-          builder: (context, snapshot) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  child: Text(
-                    snapshot.data?.data?.timings?.fajr ?? "",
+      body: Column(
+        children: [
+          FutureBuilder<List<District>>(
+              future: districtObject,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) => TextButton(
+                    child: Text(
+                      snapshot.data?[index].bnName ?? "N/A",
+                    ),
+                    onPressed: () async {
+                      final data = await fetchData();
+                      print(data.data?.timings?.fajr ?? "No data!");
+                    },
                   ),
-                  onPressed: () async {
-                    final data = await fetchData();
-                    print(data.data?.timings?.fajr ?? "No data!");
-                  },
-                ),
-              ],
-            );
-          }),
+                );
+              }),
+          FutureBuilder<PrayerTimings>(
+              future: timingObject,
+              builder: (context, snapshot) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        snapshot.data?.data?.timings?.fajr ?? "",
+                      ),
+                      onPressed: () async {
+                        final data = await fetchData();
+                        print(data.data?.timings?.fajr ?? "No data!");
+                      },
+                    ),
+                  ],
+                );
+              }),
+        ],
+      ),
     );
   }
 }
