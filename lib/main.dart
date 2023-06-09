@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'model/api_testing.dart';
+import 'screens/location_calculation_settings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ApiTesting(),
+      home: LocationCalculationController(),
+      theme: ThemeData.dark(),
     );
   }
 }
