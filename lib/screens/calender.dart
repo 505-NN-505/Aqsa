@@ -14,19 +14,11 @@ class _CalenderState extends State<Calender> {
   DateTime today = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Prayer Tracker',
-      theme: ThemeData.dark(),
-      home: Scaffold(
-        body: Container(
-          child: TableCalendar(
-            headerVisible: false,
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: today,
-          ),
-        ),
-      ),
+    return TableCalendar(
+      headerVisible: false,
+      firstDay: DateTime.utc(2010, 10, 16),
+      lastDay: DateTime.utc(2030, 3, 14),
+      focusedDay: today,
     );
   }
 }

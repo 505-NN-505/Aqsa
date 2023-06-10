@@ -24,7 +24,6 @@ class _ApiTestingState extends State<ApiTesting> {
   Future<List<District>> loadJsonData() async {
     var jsonText = await rootBundle.loadString('assets/bd_districts.json');
     var data = json.decode(jsonEncode(jsonText));
-    print(data);
     DistrictsInfo districtsInfo = DistrictsInfo.fromJson(jsonDecode(data));
     return districtsInfo.districts ?? [];
   }

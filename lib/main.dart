@@ -1,3 +1,4 @@
+import 'package:aqsa_muslim_prayer_assistant/screens/main_page.dart';
 import 'package:flutter/material.dart';
 
 import 'model/api_testing.dart';
