@@ -2,16 +2,16 @@ import 'package:aqsa_muslim_prayer_assistant/screens/calender.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/daily_hadith.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class TrackerPage extends StatefulWidget {
+  const TrackerPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _MainPageState();
+    return _TrackerPageState();
   }
 }
 
-class _MainPageState extends State<MainPage> {
+class _TrackerPageState extends State<TrackerPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

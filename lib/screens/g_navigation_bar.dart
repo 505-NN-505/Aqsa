@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Timepage.dart';
-import 'main_page.dart';
+import 'tracker_page.dart';
 
 class GNavigationBar extends StatefulWidget {
   const GNavigationBar({super.key});
@@ -16,7 +16,7 @@ class _GNavigationBarState extends State<GNavigationBar> {
 
   final List<Widget> _pages = [
     const TimePage(),
-    const MainPage(),
+    const TrackerPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _GNavigationBarState extends State<GNavigationBar> {
 
           // body: _pages[_selectedIndex],
           bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Container(
               
               color: Colors.black ,
@@ -38,7 +38,7 @@ class _GNavigationBarState extends State<GNavigationBar> {
                   color: Colors.white,
                   activeColor: Colors.white,
                   tabBackgroundColor: Colors.grey.shade800,
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   
                     tabs: const [
                       GButton(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/districts_info/district.dart';
 import '../model/districts_info/districts_info.dart';
-import 'main_page.dart';
 
 class LocationCalculationController extends StatefulWidget {
   const LocationCalculationController({super.key});
@@ -241,7 +241,7 @@ class _LocationCalculationControllerState
                             schoolMethod: asrCalculation),
                         );
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MainPage(),
+                  builder: (context) => GNavigationBar(),
                 ));
               })
         ],
