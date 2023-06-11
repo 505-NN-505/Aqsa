@@ -1,7 +1,10 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/controller/api_repositories.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/linear_progress_tracker.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/main_page.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/navigation_bottom_bar.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/timepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +15,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     theme: ThemeData().copyWith(useMaterial3: true),
+    // home: const TimePage(),
     home: const HomePage(),
   ));
   // runApp(const MainPage());
