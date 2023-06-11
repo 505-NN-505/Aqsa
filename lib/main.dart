@@ -1,5 +1,8 @@
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/controller/api_repositories.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'model/api_testing.dart';
 import 'screens/location_calculation_settings.dart';
@@ -23,9 +26,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LocationCalculationController(),
-      theme: ThemeData.dark(),
+    return BlocProvider<AlAdhanApiBloc>(
+      create: (context) => AlAdhanApiBloc(apiRepository: ApiRepository()),
+      child: MaterialApp(
+        home: LocationCalculationController(),
+        theme: ThemeData.dark(),
+      ),
     );
   }
 }

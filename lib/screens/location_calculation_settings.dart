@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/controller/api_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/districts_info/district.dart';
 import '../model/districts_info/districts_info.dart';
@@ -67,8 +71,8 @@ class _LocationCalculationControllerState
                     subtitle: Text(
                       'Please select your district in Bangladesh.',
                     ),
-                    titleTextStyle:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    titleTextStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
@@ -79,8 +83,14 @@ class _LocationCalculationControllerState
                       ),
                       asyncItems: (String filter) => fetchDistricts(),
                       itemAsString: (District d) => d.name ?? "N/A",
-                      onChanged: (District? data) => print(data),
-                      
+                      onChanged: (District? data) {
+                        context.read<AlAdhanApiBloc>().add(GetTimings(
+                            longitude: data?.long,
+                            latitude: data?.lat,
+                            calcMethod: "1"));
+                        print(data);
+                        // print(context.read<AlAdhanApiBloc>().);
+                      },
                       dropdownDecoratorProps: DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           labelText: "District",
@@ -129,8 +139,8 @@ class _LocationCalculationControllerState
                     subtitle: Text(
                       'Please select the prayer time calculation method based on your country.',
                     ),
-                    titleTextStyle:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    titleTextStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
@@ -146,7 +156,8 @@ class _LocationCalculationControllerState
                             "Islamic Society of North America",
                             "Egyptian General Authority of Survey"
                           ],
-                          selectedItem: "University of Islamic Sciences, Karachi",
+                          selectedItem:
+                              "University of Islamic Sciences, Karachi",
                           onChanged: (String? data) => print(data),
                           dropdownDecoratorProps: DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
@@ -168,7 +179,9 @@ class _LocationCalculationControllerState
                             ),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         DropdownSearch<String>(
                           popupProps: PopupProps.bottomSheet(
                             constraints: const BoxConstraints(maxHeight: 120),
@@ -207,9 +220,10 @@ class _LocationCalculationControllerState
             ),
           ),
           FloatingActionButton(
-            child: Icon(CupertinoIcons.arrow_right),
-            onPressed: () {}
-          )
+              child: Icon(CupertinoIcons.arrow_right),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlAdhanApi(),));
+              })
         ],
       ),
     );
