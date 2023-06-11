@@ -1,5 +1,6 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/controller/api_repositories.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/linear_progress_tracker.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/tracker_page.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/timepage.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider<AlAdhanApiBloc>(
       create: (context) => AlAdhanApiBloc(apiRepository: ApiRepository()),
       child: MaterialApp(
-        home: LocationCalculationController(),
+        home: LinearProgressTracker(),
         theme: ThemeData.dark(),
       ),
     );
