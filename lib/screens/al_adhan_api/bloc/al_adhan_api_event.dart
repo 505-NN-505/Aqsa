@@ -11,6 +11,6 @@ class GetTimings extends AlAdhanApiEvent {
   final String? latitude;
   final String? longitude;
   final String? calcMethod;
-
-  const GetTimings({this.latitude = "23.7115253", this.longitude = "90.4111451", this.calcMethod = "1"});
+  final String? schoolMethod;
+  const GetTimings({this.latitude = "23.7115253", this.longitude = "90.4111451", this.calcMethod = "1", this.schoolMethod = "0"});
 }

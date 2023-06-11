@@ -11,14 +11,10 @@ class AlAdhanApiBloc extends Bloc<AlAdhanApiEvent, AlAdhanApiState> {
   AlAdhanApiBloc({required this.apiRepository}) : super(AlAdhanApiInitial()) {
     // TODO: implement event handler
     on<GetTimings>((event, emit) async {
-      print(event.latitude);
-      print(event.longitude);
-      print(event.calcMethod);
-      print('\n');
       try {
         emit(AlAdhanApiLoading());
         final mList = await apiRepository.fetchData(
-            event.latitude!, event.longitude!, event.calcMethod!);
+            event.latitude!, event.longitude!, event.calcMethod!, event.schoolMethod!);
         emit(AlAdhanApiLoaded(mList));
       } on NetworkError {
         emit(AlAdhanApiError("Failed to fetch data. is your device online?"));
