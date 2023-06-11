@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
         body: ListView(
           children: const [
             SizedBox(height: 300,child: Calender(),),
-            DailyHadith(),
+            // DailyHadith(),
             
           ],
         ),
