@@ -6,7 +6,11 @@ import 'screens/location_calculation_settings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const HomePage());
+  runApp(MaterialApp(
+    theme: ThemeData().copyWith(useMaterial3: true),
+    home: const HomePage(),
+  ));
+  // runApp(const MainPage());
 }
 
 class HomePage extends StatefulWidget {
