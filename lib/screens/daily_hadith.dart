@@ -29,6 +29,7 @@ class _DailyHadithState extends State<DailyHadith> {
   Widget build(BuildContext context) {
     const TextStyle customTextStyle = TextStyle(
       color: Color.fromARGB(251, 119, 207, 231),
+      fontSize: 15,
     );
 
     Tuple<String, String> dailyHadith = getDailyHadith();
@@ -49,7 +50,7 @@ class _DailyHadithState extends State<DailyHadith> {
             height: 5,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: const Text(
               'Daily Hadith',
               style: TextStyle(
