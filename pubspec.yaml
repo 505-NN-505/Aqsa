@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_secure_storage: ^8.0.0
   google_fonts: ^5.0.0
   google_nav_bar: ^5.0.6
   intl: ^0.18.1
@@ -73,6 +74,7 @@ flutter:
     - assets/images/
     - assets/bd_districts.json
     - assets/treasure-map.png
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
+import 'package:aqsa_muslim_prayer_assistant/utilities/secured_storage.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,8 @@ class _LocationCalculationControllerState
   Map<String?, String> calcMap = {};
   Map<String?, String> asrMap = {};
 
+  late SecureStorage storage;
+
   Future<List<District>> fetchDistricts() async {
     var jsonText = await rootBundle.loadString('assets/bd_districts.json');
     var data = json.decode(jsonEncode(jsonText));
@@ -41,6 +44,9 @@ class _LocationCalculationControllerState
   @override
   void initState() {
     super.initState();
+
+    storage = SecureStorage();
+
     districtObject = fetchDistricts();
     calcMap["University of Islamic Sciences, Karachi"] = "1";
     calcMap["Muslim World League"] = "3";
@@ -234,16 +240,21 @@ class _LocationCalculationControllerState
           FloatingActionButton(
               child: Icon(CupertinoIcons.arrow_right),
               onPressed: () {
-                context.read<AlAdhanApiBloc>().add(GetTimings(
-                            longitude: location?.long,
-                            latitude: location?.lat,
-                            calcMethod: asrCalculation,
-                            schoolMethod: asrCalculation),
-                        );
+                storage.set("location", location?.name);
+                storage.set("calcMethod", calcMethod);
+                storage.set("schoolMethod", asrCalculation);
+                context.read<AlAdhanApiBloc>().add(
+                      GetTimings(
+                          longitude: location?.long,
+                          latitude: location?.lat,
+                          calcMethod: calcMethod,
+                          schoolMethod: asrCalculation),
+                    );
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GNavigationBar(),
                 ));
-              })
+              }
+            )
         ],
       ),
     );
