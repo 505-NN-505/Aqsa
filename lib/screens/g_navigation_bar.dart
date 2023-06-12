@@ -21,20 +21,16 @@ class _GNavigationBarState extends State<GNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: Scaffold(
           body: _pages[_selectedIndex],
-
-          // body: _pages[_selectedIndex],
           bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Container(
-              
-              color: Colors.black ,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
                 child: GNav(
                   gap: 8,
-                  backgroundColor: Colors.black,
                   color: Colors.white,
                   activeColor: Colors.white,
                   tabBackgroundColor: Colors.grey.shade800,

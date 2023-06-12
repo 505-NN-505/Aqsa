@@ -51,7 +51,7 @@ class _TimerViewState extends State<TimerView> {
       alignment: Alignment.center,
       children: [
         SimpleCircularProgressBar(
-          size: 100,
+          size: 120,
           progressColors: [Colors.orange, Colors.red],
           progressStrokeWidth: 20,
           backStrokeWidth: 10,

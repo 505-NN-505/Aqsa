@@ -28,8 +28,9 @@ class _DailyHadithState extends State<DailyHadith> {
   @override
   Widget build(BuildContext context) {
     const TextStyle customTextStyle = TextStyle(
-      color: Color.fromARGB(251, 119, 207, 231),
+      color: Color.fromARGB(249, 147, 209, 226),
       fontSize: 15,
+      fontWeight: FontWeight.w800,
     );
 
     Tuple<String, String> dailyHadith = getDailyHadith();
@@ -42,7 +43,7 @@ class _DailyHadithState extends State<DailyHadith> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,7 +51,7 @@ class _DailyHadithState extends State<DailyHadith> {
               Image.asset(
                 'assets/images/quote.png',
                 height: 40,
-                color: const Color.fromARGB(251, 119, 207, 231),
+                color: Colors.orange,
               ),
               const SizedBox(
                 height: 5,
@@ -60,8 +61,9 @@ class _DailyHadithState extends State<DailyHadith> {
                 child: const Text(
                   'Daily Hadith',
                   style: TextStyle(
-                    color: Color.fromARGB(251, 119, 207, 231),
+                    color: Colors.white,
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

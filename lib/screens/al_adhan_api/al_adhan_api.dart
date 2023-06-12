@@ -30,8 +30,12 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
 
           timingMap["Imsak"] = state.model.data?.timings?.imsak ?? "N/A";
           timingMap["Fajr"] = state.model.data?.timings?.fajr ?? "N/A";
+          timingMap["Sunrise(Forbidden)"] =
+              state.model.data?.timings?.sunrise ?? "N/A";
           timingMap["Dhuhr"] = state.model.data?.timings?.dhuhr ?? "N/A";
           timingMap["Asr"] = state.model.data?.timings?.asr ?? "N/A";
+          timingMap["Sunset(Forbidden)"] =
+              state.model.data?.timings?.sunset ?? "N/A";
           timingMap["Maghrib"] = state.model.data?.timings?.maghrib ?? "N/A";
           timingMap["Isha"] = state.model.data?.timings?.isha ?? "N/A";
 
@@ -45,13 +49,21 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
           if (TimeChecker.isTimeBefore(timingMap["Fajr"]!)) {
             remainingTime =
                 TimeChecker.calculateRemainingTimeInSeconds(timingMap["Fajr"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Fajr"]!)) {
+          } else if (TimeChecker.isTimeBefore(
+              timingMap["Sunrise(Forbidden)"]!)) {
+            remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
+                timingMap["Sunrise(Forbidden)"]!);
+          } else if (TimeChecker.isTimeBefore(timingMap["Dhuhr"]!)) {
             remainingTime =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Fajr"]!);
+                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Dhuhr"]!);
           } else if (TimeChecker.isTimeBefore(timingMap["Asr"]!)) {
             remainingTime =
                 TimeChecker.calculateRemainingTimeInSeconds(timingMap["Asr"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Maghrib"]!)) {
+          } else if (TimeChecker.isTimeBefore(timingMap["Sunset(Forbidden)"]!)) {
+            remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
+                timingMap["Sunset(Forbidden)"]!);
+          }
+          else if (TimeChecker.isTimeBefore(timingMap["Maghrib"]!)) {
             remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
                 timingMap["Maghrib"]!);
           } else if (TimeChecker.isTimeBefore(timingMap["Isha"]!)) {
@@ -59,8 +71,8 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                 TimeChecker.calculateRemainingTimeInSeconds(timingMap["Isha"]!);
           }
 
-          remainingTimeIftar =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Maghrib"]!);
+          remainingTimeIftar = TimeChecker.calculateRemainingTimeInSeconds(
+              timingMap["Maghrib"]!);
 
           return Container(
             child: Column(
@@ -78,17 +90,28 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Now: $currentWakt",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                Text(
+                                  "Now: ",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 15),
+                                ),
+                                Text(
+                                  "$currentWakt",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               textBaseline: TextBaseline.ideographic,
                               children: [
                                 Text(
-                                  "Starting Time: ",
+                                  "Starting: ",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15),
                                 ),
@@ -131,7 +154,7 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Card(
                         elevation: 10,
@@ -170,12 +193,14 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                                   Text(
                                     'Countdown to',
                                     style: TextStyle(
-                                        fontSize: 17, fontWeight: FontWeight.bold),
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Iftar',
                                     style: TextStyle(
-                                        fontSize: 17, fontWeight: FontWeight.bold),
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),

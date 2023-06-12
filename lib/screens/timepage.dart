@@ -20,9 +20,12 @@ class _TimePageState extends State<TimePage> {
         body: ListView(
           children: [
             Center(
-              child: Image.asset(
-                'assets/mosque.png',
-                height: 150,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Image.asset(
+                  'assets/mosque.png',
+                  height: 150,
+                ),
               ),
             ),
             Padding(
