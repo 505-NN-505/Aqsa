@@ -51,14 +51,14 @@ class _PrayerTrackerState extends State<PrayerTracker> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Prayer Completed',
+            'Prayer Tracker',
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(height: 8.0),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: LinearProgressIndicator(value: calculateProgress()),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          child: LinearProgressIndicator(value: calculateProgress(),minHeight: 18,),
         ),
         SizedBox(height: 16.0),
         Row(
@@ -70,11 +70,11 @@ class _PrayerTrackerState extends State<PrayerTracker> {
                 updateprayerCompletion(index);
               },
               child: Container(
-                width: 65.0,
+                width: 70.0,
                 height: 50.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(27.0),
                   border: Border.all(color: Colors.black, width: 1.0),
                   color: prayerCompletion[index]
                       ? Colors.green
