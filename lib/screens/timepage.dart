@@ -1,5 +1,7 @@
+import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/daily_hadith.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/prayer_tracker.dart';
+import 'package:aqsa_muslim_prayer_assistant/utilities/storage_service.dart';
 import 'package:flutter/material.dart';
 
 class TimePage extends StatefulWidget {
@@ -10,6 +12,21 @@ class TimePage extends StatefulWidget {
 }
 
 class _TimePageState extends State<TimePage> {
+  var valueLocation = "";
+
+  Future getStorageLocation() async {
+    var str = await SecureStorage.get("location");
+    setState(() {
+      valueLocation = str;
+    });
+  }
+
+  @override
+  void initState() {
+    getStorageLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,53 +34,38 @@ class _TimePageState extends State<TimePage> {
       theme: ThemeData.dark(),
       home: Scaffold(
         body: ListView(
-      children: [
-        Row(children: [
-          SizedBox(width: 20,),
-          Container(child: 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            Text('Now: Duhur', style: TextStyle(fontSize: 20)),
-
-            Text.rich(
-    TextSpan(
-      style: TextStyle(color: Colors.redAccent), //apply style to all
-      children: [
-      TextSpan(text: '11:57', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
-      TextSpan(text: ' AM', style: TextStyle(fontSize: 15)),
-      TextSpan(text: '(start time)', ),
-      
-    ]
-  )
-),
-
-            Text('11:57 AM (start time)'),
-            Text('3 hour left'),
-            Text('Suhur : 3:43 AM'),
-            Text('Iftar : 3:43 AM'),
-            
-          ]),),
-          SizedBox(width: 20,),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Image.asset(
-                    'assets/images/mosque.png',
-                    color: Colors.indigo[800],
-                    height: 180,
-                  ),
+          children: [
+            Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                trailing: Text(valueLocation),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Image.asset(
+                  'assets/mosque.png',
+                  height: 150,
                 ),
-
-        ],),
-        PrayerTracker(),
-        const DailyHadith(),
-      ],
-    ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AlAdhanApi(),
+                ],
+              ),
+            ),
+            DailyHadith(),
+          ],
+        ),
       ),
     );
- 
   }
 }
-
-
-

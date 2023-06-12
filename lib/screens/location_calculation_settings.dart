@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/districts_info/district.dart';
 import '../model/districts_info/districts_info.dart';
+import '../utilities/storage_service.dart';
 
 class LocationCalculationController extends StatefulWidget {
   const LocationCalculationController({super.key});
@@ -41,6 +42,7 @@ class _LocationCalculationControllerState
   @override
   void initState() {
     super.initState();
+
     districtObject = fetchDistricts();
     calcMap["University of Islamic Sciences, Karachi"] = "1";
     calcMap["Muslim World League"] = "3";
@@ -233,13 +235,19 @@ class _LocationCalculationControllerState
           ),
           FloatingActionButton(
               child: Icon(CupertinoIcons.arrow_right),
-              onPressed: () {
-                context.read<AlAdhanApiBloc>().add(GetTimings(
-                            longitude: location?.long,
-                            latitude: location?.lat,
-                            calcMethod: asrCalculation,
-                            schoolMethod: asrCalculation),
-                        );
+              onPressed: () async {
+           
+                await SecureStorage.set("location", location!.name);
+                await SecureStorage.set("calcMethod", calcMethod);
+                await SecureStorage.set("schoolMethod", asrCalculation);
+
+                context.read<AlAdhanApiBloc>().add(
+                      GetTimings(
+                          longitude: location?.long,
+                          latitude: location?.lat,
+                          calcMethod: calcMethod,
+                          schoolMethod: asrCalculation),
+                    );
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GNavigationBar(),
                 ));

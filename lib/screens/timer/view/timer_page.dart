@@ -6,18 +6,20 @@ import '../ticker.dart';
 import '../timer.dart';
 
 class TimerPage extends StatelessWidget {
-  const TimerPage({Key? key}) : super(key: key);
+  final int duration;
+  const TimerPage({Key? key, required this.duration}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => TimerBloc(ticker: const Ticker()),
-      child: const TimerView(),
+      child: TimerView(duration: duration),
     );
   }
 }
 
 class TimerView extends StatefulWidget {
-  const TimerView({Key? key}) : super(key: key);
+  final int duration;
+  const TimerView({Key? key, required this.duration}) : super(key: key);
 
   @override
   State<TimerView> createState() => _TimerViewState();
@@ -31,7 +33,7 @@ class _TimerViewState extends State<TimerView> {
   void initState() {
     super.initState();
     valueNotifier = ValueNotifier(0.0);
-    initTimer(5);
+    initTimer(widget.duration);
   }
 
   void initTimer(int _duration) {
@@ -39,32 +41,29 @@ class _TimerViewState extends State<TimerView> {
       timerDuration = _duration;
       context.read<TimerBloc>().setDuration(_duration);
       context.read<TimerBloc>().add(TimerStarted(duration: _duration));
-      valueNotifier = ValueNotifier(100);
+      valueNotifier = ValueNotifier(100.0);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Timer')),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          SimpleCircularProgressBar(
-            size: 250,
-            progressColors: [Colors.orange, Colors.red],
-            progressStrokeWidth: 30,
-            backStrokeWidth: 15,
-            valueNotifier: valueNotifier,
-            mergeMode: true,
-            animationDuration: timerDuration,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 100.0),
-            child: Center(child: TimerText()),
-          ),
-        ],
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SimpleCircularProgressBar(
+          size: 120,
+          progressColors: [Colors.orange, Colors.red],
+          progressStrokeWidth: 20,
+          backStrokeWidth: 10,
+          valueNotifier: valueNotifier,
+          mergeMode: true,
+          animationDuration: timerDuration,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 100.0),
+          child: Center(child: TimerText()),
+        ),
+      ],
     );
   }
 }
@@ -81,7 +80,7 @@ class TimerText extends StatelessWidget {
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
     return Text(
       '$hoursStr:$minutesStr:$secondsStr',
-      style: Theme.of(context).textTheme.displaySmall,
+      style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
     );
   }
 }

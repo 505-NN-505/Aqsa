@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
-import 'package:simple_progress_indicators/simple_progress_indicators.dart';
+
+import '../utilities/storage_service.dart';
 
 class LinearProgressTracker extends StatefulWidget {
-  const LinearProgressTracker({super.key});
+  final int index;
+
+  const LinearProgressTracker({super.key, required this.index});
 
   @override
   State<LinearProgressTracker> createState() => _LinearProgressTrackerState();
@@ -11,10 +14,12 @@ class LinearProgressTracker extends StatefulWidget {
 
 class _LinearProgressTrackerState extends State<LinearProgressTracker> {
   late double value;
+  late SecureStorage storage;
 
   @override
   void initState() {
-    value = 0.0; // assign value from shared storage
+    storage = SecureStorage();
+    value = SecureStorage.get("LinearProgressTracker$widget.index") as double; // assign value from shared storage
     super.initState();
   }
 
@@ -28,8 +33,7 @@ class _LinearProgressTrackerState extends State<LinearProgressTracker> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
+    return Center(
       child: SimpleAnimationProgressBar(
         height: 300,
         width: 20,
@@ -43,6 +47,6 @@ class _LinearProgressTrackerState extends State<LinearProgressTracker> {
         gradientColor:
             const LinearGradient(colors: [Colors.pink, Colors.purple]),
       ),
-    ));
+    );
   }
 }

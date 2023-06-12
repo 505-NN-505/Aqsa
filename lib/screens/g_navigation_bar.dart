@@ -1,3 +1,4 @@
+import 'package:aqsa_muslim_prayer_assistant/screens/location_calculation_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -17,24 +18,21 @@ class _GNavigationBarState extends State<GNavigationBar> {
   final List<Widget> _pages = [
     const TimePage(),
     const TrackerPage(),
+    const LocationCalculationController(),
   ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: Scaffold(
           body: _pages[_selectedIndex],
-
-          // body: _pages[_selectedIndex],
           bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Container(
-              
-              color: Colors.black ,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
                 child: GNav(
                   gap: 8,
-                  backgroundColor: Colors.black,
                   color: Colors.white,
                   activeColor: Colors.white,
                   tabBackgroundColor: Colors.grey.shade800,
