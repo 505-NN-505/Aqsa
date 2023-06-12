@@ -31,7 +31,7 @@ class _GNavigationBarState extends State<GNavigationBar> {
               
               color: Colors.black ,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
                 child: GNav(
                   gap: 8,
                   backgroundColor: Colors.black,

@@ -1,5 +1,6 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/daily_hadith.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/prayer_tracker.dart';
 import 'package:flutter/material.dart';
 
 class TimePage extends StatefulWidget {

@@ -15,7 +15,8 @@ class _CalenderState extends State<Calender> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      headerVisible: false,
+      calendarFormat: CalendarFormat.week,
+      // headerVisible: false,
       firstDay: DateTime.utc(2010, 10, 16),
       lastDay: DateTime.utc(2030, 3, 14),
       focusedDay: today,
