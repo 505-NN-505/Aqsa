@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
-import 'package:aqsa_muslim_prayer_assistant/utilities/secured_storage.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/districts_info/district.dart';
 import '../model/districts_info/districts_info.dart';
+import '../utilities/storage_service.dart';
 
 class LocationCalculationController extends StatefulWidget {
   const LocationCalculationController({super.key});
@@ -32,8 +32,6 @@ class _LocationCalculationControllerState
   Map<String?, String> calcMap = {};
   Map<String?, String> asrMap = {};
 
-  late SecureStorage storage;
-
   Future<List<District>> fetchDistricts() async {
     var jsonText = await rootBundle.loadString('assets/bd_districts.json');
     var data = json.decode(jsonEncode(jsonText));
@@ -44,8 +42,6 @@ class _LocationCalculationControllerState
   @override
   void initState() {
     super.initState();
-
-    storage = SecureStorage();
 
     districtObject = fetchDistricts();
     calcMap["University of Islamic Sciences, Karachi"] = "1";
@@ -239,10 +235,12 @@ class _LocationCalculationControllerState
           ),
           FloatingActionButton(
               child: Icon(CupertinoIcons.arrow_right),
-              onPressed: () {
-                storage.set("location", location?.name);
-                storage.set("calcMethod", calcMethod);
-                storage.set("schoolMethod", asrCalculation);
+              onPressed: () async {
+           
+                await SecureStorage.set("location", location!.name);
+                await SecureStorage.set("calcMethod", calcMethod);
+                await SecureStorage.set("schoolMethod", asrCalculation);
+
                 context.read<AlAdhanApiBloc>().add(
                       GetTimings(
                           longitude: location?.long,
@@ -253,8 +251,7 @@ class _LocationCalculationControllerState
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GNavigationBar(),
                 ));
-              }
-            )
+              })
         ],
       ),
     );

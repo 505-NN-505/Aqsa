@@ -1,5 +1,5 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/timer/timer.dart';
-import 'package:aqsa_muslim_prayer_assistant/utilities/secured_storage.dart';
+import 'package:aqsa_muslim_prayer_assistant/utilities/storage_service.dart';
 import 'package:aqsa_muslim_prayer_assistant/utilities/time_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,8 +18,6 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
   Widget build(BuildContext context) {
     return BlocBuilder<AlAdhanApiBloc, AlAdhanApiState>(
       builder: (context, state) {
-        SecureStorage storage = SecureStorage();
-        print(storage.get("location"));
         if (state is AlAdhanApiLoaded) {
           late String currentWakt = "";
           late String currentStartTime = "";

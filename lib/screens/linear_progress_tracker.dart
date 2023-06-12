@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
 
-import '../utilities/secured_storage.dart';
+import '../utilities/storage_service.dart';
 
 class LinearProgressTracker extends StatefulWidget {
   final int index;
@@ -19,8 +19,7 @@ class _LinearProgressTrackerState extends State<LinearProgressTracker> {
   @override
   void initState() {
     storage = SecureStorage();
-    value = storage
-        .get("LinearProgressTracker$widget.index") as double; // assign value from shared storage
+    value = SecureStorage.get("LinearProgressTracker$widget.index") as double; // assign value from shared storage
     super.initState();
   }
 
