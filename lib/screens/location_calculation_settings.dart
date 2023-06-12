@@ -97,7 +97,7 @@ class _LocationCalculationControllerState
                         showSearchBox: true,
                       ),
                       asyncItems: (String filter) => fetchDistricts(),
-                      itemAsString: (District d) => d.name ?? "N/A",
+                      itemAsString: (District d) => d.name ?? "Dhaka",
                       onChanged: (District? data) {
                         location = data;
                       },
