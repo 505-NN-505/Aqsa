@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
-
-// class PrayerTrackerApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Prayer Tracker',
-//       theme: ThemeData(primarySwatch: Colors.blue),
-//       home: Scaffold(
-//         appBar: AppBar(title: Text('Namaz Tracker')),
-//         body: Center(
-//           child: PrayerTracker(),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class PrayerTracker extends StatefulWidget {
   @override
@@ -31,70 +16,88 @@ class _PrayerTrackerState extends State<PrayerTracker> {
     'Isha',
   ];
 
-  double calculateProgress() {
-    int completedTasks =
-        prayerCompletion.where((completed) => completed).length;
-    return completedTasks / prayerCompletion.length;
-  }
+  int selectedPrayerCount = 0;
+  double currentProgress = 0.0;
+  double targetProgress = 0.0;
 
-  void updateprayerCompletion(int index) {
+  void updatePrayerCompletion(int index) {
     setState(() {
       prayerCompletion[index] = !prayerCompletion[index];
+      selectedPrayerCount += prayerCompletion[index] ? 1 : -1;
+
+      targetProgress = selectedPrayerCount / prayerCompletion.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'Prayer Tracker',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+    return Center(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Daily Prayer Tracker',
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        SizedBox(height: 8.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0),
-          child: LinearProgressIndicator(value: calculateProgress(),minHeight: 18,),
-        ),
-        SizedBox(height: 16.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            prayerCompletion.length,
-            (index) => GestureDetector(
-              onTap: () {
-                updateprayerCompletion(index);
-              },
-              child: Container(
-                width: 70.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(27.0),
-                  border: Border.all(color: Colors.black, width: 1.0),
-                  color: prayerCompletion[index]
-                      ? Colors.green
-                      : Colors.lightBlue[100],
+          SizedBox(height: 8.0),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: currentProgress, end: targetProgress),
+            duration: Duration(milliseconds: 800),
+            builder: (context, value, _) {
+              currentProgress = value;
+              return CircularPercentIndicator(
+                radius: 140,
+                lineWidth: 40,
+                percent: currentProgress,
+                progressColor: Colors.deepPurple,
+                backgroundColor: Colors.deepPurple.shade100,
+                circularStrokeCap: CircularStrokeCap.round,
+                center: Text(
+                  '${(currentProgress * 100).toStringAsFixed(0)} %',
+                  style: TextStyle(fontSize: 50),
                 ),
-                child: Center(
-                  child: Text(
-                    prayerNames[index],
-                    style: TextStyle(
-                      color:
-                          prayerCompletion[index] ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.bold,
+              );
+            },
+          ),
+          SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              prayerCompletion.length,
+              (index) => GestureDetector(
+                onTap: () {
+                  updatePrayerCompletion(index);
+                },
+                child: Container(
+                  width: 74.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(27.0),
+                    border: Border.all(color: Colors.white, width: 3.0),
+                    color: prayerCompletion[index]
+                        ? Colors.green
+                        : Colors.lightBlue[100],
+                  ),
+                  child: Center(
+                    child: Text(
+                      prayerNames[index],
+                      style: TextStyle(
+                        color: prayerCompletion[index]
+                            ? Colors.white
+                            : Colors.black,
+                        // fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
