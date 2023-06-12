@@ -1,4 +1,5 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/daily_hadith.dart';
+import 'package:aqsa_muslim_prayer_assistant/screens/prayer_tracker.dart';
 import 'package:flutter/material.dart';
 
 class TimePage extends StatefulWidget {
@@ -54,6 +55,7 @@ class _TimePageState extends State<TimePage> {
                 ),
 
         ],),
+        PrayerTracker(),
         const DailyHadith(),
       ],
     ),

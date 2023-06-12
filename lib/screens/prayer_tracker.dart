@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class PrayerTrackerApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Prayer Tracker',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(
-        appBar: AppBar(title: Text('Namaz Tracker')),
-        body: Center(
-          child: PrayerTracker(),
-        ),
-      ),
-    );
-  }
-}
+// class PrayerTrackerApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Prayer Tracker',
+//       theme: ThemeData(primarySwatch: Colors.blue),
+//       home: Scaffold(
+//         appBar: AppBar(title: Text('Namaz Tracker')),
+//         body: Center(
+//           child: PrayerTracker(),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class PrayerTracker extends StatefulWidget {
   @override

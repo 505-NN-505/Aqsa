@@ -7,7 +7,7 @@ import 'package:aqsa_muslim_prayer_assistant/screens/tracker_page.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/timepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'screens/progress_bar.dart';
+import 'screens/prayer_tracker.dart';
 import 'model/api_testing.dart';
 import 'screens/location_calculation_settings.dart';
 
