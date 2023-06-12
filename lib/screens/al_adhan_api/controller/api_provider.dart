@@ -10,16 +10,19 @@ class ApiProvider {
   late String _url;
   late String _date;
 
-  Future<PrayerTimings> fetchTimings(
-      String latitude, String longitude, String calcMethod, String schoolMethod) async {
+  Future<PrayerTimings> fetchTimings(String latitude, String longitude,
+      String calcMethod, String schoolMethod) async {
     final now = DateTime.now();
     String formatter = DateFormat('dd-mm-yyyy').format(now);
     _date = formatter;
+
+    print(_date);
 
     _url =
         "https://api.aladhan.com/v1/timings/$_date?latitude=$latitude&longitude=$longitude&method=$calcMethod&school=$schoolMethod";
 
     Response response = await _dio.get(_url);
+    print(response);
     Map<String, dynamic> userMap = jsonDecode(jsonEncode(response.data));
     var prayerTimings = PrayerTimings.fromJson(userMap);
     return prayerTimings;

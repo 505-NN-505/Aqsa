@@ -45,4 +45,11 @@ class TimeChecker {
 
     return remainingSeconds;
   }
+
+  static String getCurrentDate() {
+    DateTime now = DateTime.now();
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    String formattedDate = dateFormat.format(now);
+    return formattedDate;
+  }
 }

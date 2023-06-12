@@ -136,15 +136,33 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Suhur: ${TimeChecker.convertToAmPm(timingMap["Imsak"]!)}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Suhur: ",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                  Text(
+                                    TimeChecker.convertToAmPm(timingMap["Imsak"]!),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "Iftar: ${TimeChecker.convertToAmPm(timingMap["Maghrib"]!)}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Iftar: ",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                  Text(
+                                    TimeChecker.convertToAmPm(timingMap["Maghrib"]!),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ]),
                       ),
