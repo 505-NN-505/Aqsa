@@ -1,5 +1,4 @@
 import 'package:aqsa_muslim_prayer_assistant/screens/calender.dart';
-import 'package:aqsa_muslim_prayer_assistant/screens/daily_hadith.dart';
 import 'package:flutter/material.dart';
 
 class TrackerPage extends StatefulWidget {
@@ -21,8 +20,6 @@ class _TrackerPageState extends State<TrackerPage> {
         body: ListView(
           children: const [
             SizedBox(height: 300,child: Calender(),),
-            // DailyHadith(),
-            
           ],
         ),
       ),

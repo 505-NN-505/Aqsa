@@ -50,7 +50,7 @@ class _DailyHadithState extends State<DailyHadith> {
             height: 5,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: const Text(
               'Daily Hadith',
               style: TextStyle(

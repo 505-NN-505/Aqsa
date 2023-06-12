@@ -23,20 +23,38 @@ class _TimePageState extends State<TimePage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text('Now: Duhur'),
+            Text('Now: Duhur', style: TextStyle(fontSize: 20)),
+
+            Text.rich(
+    TextSpan(
+      style: TextStyle(color: Colors.redAccent), //apply style to all
+      children: [
+      TextSpan(text: '11:57', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
+      TextSpan(text: ' AM', style: TextStyle(fontSize: 15)),
+      TextSpan(text: '(start time)', ),
+      
+    ]
+  )
+),
+
             Text('11:57 AM (start time)'),
             Text('3 hour left'),
             Text('Suhur : 3:43 AM'),
             Text('Iftar : 3:43 AM'),
+            
           ]),),
-                Image.asset(
-                  'assets/images/mosque3.png',
-                  color: Colors.indigo[800],
-                  height: 250,
+          SizedBox(width: 20,),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Image.asset(
+                    'assets/images/mosque.png',
+                    color: Colors.indigo[800],
+                    height: 180,
+                  ),
                 ),
 
         ],),
-        DailyHadith(),
+        const DailyHadith(),
       ],
     ),
       ),

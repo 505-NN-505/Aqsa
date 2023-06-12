@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider<AlAdhanApiBloc>(
       create: (context) => AlAdhanApiBloc(apiRepository: ApiRepository()),
       child: MaterialApp(
-        home: LocationCalculationController(),
+        home: const LocationCalculationController(),
         theme: ThemeData.dark(),
       ),
     );
