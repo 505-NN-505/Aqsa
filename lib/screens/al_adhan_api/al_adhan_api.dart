@@ -14,18 +14,74 @@ class AlAdhanApi extends StatefulWidget {
 }
 
 class _AlAdhanApiState extends State<AlAdhanApi> {
+  late String currentWakt = "Isha";
+  late String currentStartTime = "";
+  late int remainingTime = 0;
+  late int remainingTimeIftar = 0;
+  late String mealTime = "";
+  Map<String, String> timingMap = {};
+
+  void resetTimer() {
+    print(timingMap);
+    currentStartTime = TimeChecker.convertToAmPm(timingMap["Isha"]!);
+    timingMap.forEach((k, v) {
+      if (TimeChecker.isTimeGreaterEqual(v)) {
+        currentWakt = k;
+        currentStartTime = TimeChecker.convertToAmPm(v);
+      }
+    });
+
+    if (TimeChecker.isTimeGreaterEqual(timingMap["Fajr"]!) &&
+        TimeChecker.isTimeLessEqual(timingMap["Sunrise(Forbidden)"]!)) {
+      remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
+          timingMap["Sunrise(Forbidden)"]!);
+    } else if (TimeChecker.isTimeGreaterEqual(timingMap["Fajr"]!) &&
+        TimeChecker.isTimeLessEqual(timingMap["Dhuhr"]!)) {
+      remainingTime = 0;
+    } else if (TimeChecker.isTimeGreaterEqual(timingMap["Dhuhr"]!) &&
+        TimeChecker.isTimeLessEqual(timingMap["Asr"]!)) {
+      remainingTime =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Asr"]!);
+    } else if (TimeChecker.isTimeGreaterEqual(timingMap["Asr"]!) &&
+        TimeChecker.isTimeLessEqual(timingMap["Maghrib"]!)) {
+      remainingTime =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Maghrib"]!);
+    } else if (TimeChecker.isTimeGreaterEqual(timingMap["Maghrib"]!) &&
+        TimeChecker.isTimeLessEqual(timingMap["Isha"]!)) {
+      remainingTime =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Isha"]!);
+    } else if (TimeChecker.isTimeGreaterEqual(timingMap["Isha"]!) ||
+        TimeChecker.isTimeLessEqual(timingMap["Fajr"]!)) {
+      remainingTime =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Fajr"]!);
+    }
+
+    if (currentWakt == "Maghrib" || currentWakt == "Isha") {
+      remainingTimeIftar =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Imsak"]!);
+      mealTime = "Suhur";
+    } else {
+      remainingTimeIftar =
+          TimeChecker.calculateRemainingTimeInSeconds(timingMap["Maghrib"]!);
+      mealTime = "Iftar";
+    }
+    print(currentWakt);
+    print(currentStartTime);
+    print(remainingTime);
+    print(remainingTimeIftar);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (timingMap.isNotEmpty && remainingTime == 0) {
+      resetTimer();
+    }
+    if (timingMap.isNotEmpty && remainingTimeIftar == 0) {
+      resetTimer();
+    }
     return BlocBuilder<AlAdhanApiBloc, AlAdhanApiState>(
       builder: (context, state) {
         if (state is AlAdhanApiLoaded) {
-          late String currentWakt = "";
-          late String currentStartTime = "";
-          late int remainingTime = 0;
-          late int remainingTimeIftar = 0;
-
-          Map<String, String> timingMap = {};
-
           timingMap["Imsak"] = state.model.data?.timings?.imsak ?? "N/A";
           timingMap["Fajr"] = state.model.data?.timings?.fajr ?? "N/A";
           timingMap["Sunrise(Forbidden)"] =
@@ -37,40 +93,7 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
           timingMap["Maghrib"] = state.model.data?.timings?.maghrib ?? "N/A";
           timingMap["Isha"] = state.model.data?.timings?.isha ?? "N/A";
 
-          timingMap.forEach((k, v) {
-            if (TimeChecker.isTimeGreaterEqual(v)) {
-              currentWakt = k;
-              currentStartTime = TimeChecker.convertToAmPm(v);
-            }
-          });
-
-          if (TimeChecker.isTimeBefore(timingMap["Fajr"]!)) {
-            remainingTime =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Fajr"]!);
-          } else if (TimeChecker.isTimeBefore(
-              timingMap["Sunrise(Forbidden)"]!)) {
-            remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
-                timingMap["Sunrise(Forbidden)"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Dhuhr"]!)) {
-            remainingTime =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Dhuhr"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Asr"]!)) {
-            remainingTime =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Asr"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Sunset(Forbidden)"]!)) {
-            remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
-                timingMap["Sunset(Forbidden)"]!);
-          }
-          else if (TimeChecker.isTimeBefore(timingMap["Maghrib"]!)) {
-            remainingTime = TimeChecker.calculateRemainingTimeInSeconds(
-                timingMap["Maghrib"]!);
-          } else if (TimeChecker.isTimeBefore(timingMap["Isha"]!)) {
-            remainingTime =
-                TimeChecker.calculateRemainingTimeInSeconds(timingMap["Isha"]!);
-          }
-
-          remainingTimeIftar = TimeChecker.calculateRemainingTimeInSeconds(
-              timingMap["Maghrib"]!);
+          resetTimer();
 
           return Container(
             child: Column(
@@ -144,9 +167,12 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                                         color: Colors.white, fontSize: 15),
                                   ),
                                   Text(
-                                    TimeChecker.convertToAmPm(timingMap["Imsak"]!),
+                                    TimeChecker.convertToAmPm(
+                                        timingMap["Imsak"]!),
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -158,9 +184,12 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                                         color: Colors.white, fontSize: 15),
                                   ),
                                   Text(
-                                    TimeChecker.convertToAmPm(timingMap["Maghrib"]!),
+                                    TimeChecker.convertToAmPm(
+                                        timingMap["Maghrib"]!),
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -213,7 +242,7 @@ class _AlAdhanApiState extends State<AlAdhanApi> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Iftar',
+                                    mealTime,
                                     style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),

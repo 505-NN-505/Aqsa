@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aqsa_muslim_prayer_assistant/utilities/time_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
@@ -12,16 +13,14 @@ class ApiProvider {
 
   Future<PrayerTimings> fetchTimings(String latitude, String longitude,
       String calcMethod, String schoolMethod) async {
-    final now = DateTime.now();
-    String formatter = DateFormat('dd-mm-yyyy').format(now);
-    _date = formatter;
 
-    print(_date);
+    _date = TimeChecker.getCurrentDate();
 
     _url =
         "https://api.aladhan.com/v1/timings/$_date?latitude=$latitude&longitude=$longitude&method=$calcMethod&school=$schoolMethod";
 
     Response response = await _dio.get(_url);
+    print(_date);
     print(response);
     Map<String, dynamic> userMap = jsonDecode(jsonEncode(response.data));
     var prayerTimings = PrayerTimings.fromJson(userMap);

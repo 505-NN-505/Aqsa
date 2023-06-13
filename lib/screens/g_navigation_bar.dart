@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:aqsa_muslim_prayer_assistant/screens/location_calculation_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

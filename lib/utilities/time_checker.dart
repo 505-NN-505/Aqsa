@@ -1,17 +1,18 @@
 import 'package:intl/intl.dart';
 
 class TimeChecker {
+  static bool isTimeLessEqual(String endTime) {
+    DateTime now = DateTime.now();
+    DateTime end = _parseDigitalTime(endTime, now);
+
+    return now.isBefore(end) || now.isAtSameMomentAs(end);
+  }
+
   static bool isTimeGreaterEqual(String startTime) {
     DateTime now = DateTime.now();
     DateTime start = _parseDigitalTime(startTime, now);
 
     return now.isAfter(start) || now.isAtSameMomentAs(start);
-  }
-
-  static bool isTimeBefore(String endTime) {
-    DateTime now = DateTime.now();
-    DateTime end = _parseDigitalTime(endTime, now);
-    return now.isBefore(end);
   }
 
   static DateTime _parseDigitalTime(String time, DateTime currentDateTime) {
@@ -26,6 +27,7 @@ class TimeChecker {
       minutes,
     );
   }
+
   static String convertToAmPm(String digitalTime) {
     DateFormat inputFormat = DateFormat('HH:mm');
     DateFormat outputFormat = DateFormat('hh:mm a');
@@ -40,10 +42,13 @@ class TimeChecker {
     DateTime now = DateTime.now();
     DateTime end = _parseDigitalTime(endTime, now);
 
-    Duration remainingDuration = end.difference(now);
-    int remainingSeconds = remainingDuration.inSeconds;
+    if (end.isBefore(now)) {
+      end = end.add(Duration(days: 1));
+    }
 
-    return remainingSeconds;
+    int difference = end.difference(now).inSeconds;
+
+    return difference;
   }
 
   static String getCurrentDate() {

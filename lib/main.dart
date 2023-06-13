@@ -10,6 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'screens/prayer_tracker.dart';
 import 'model/api_testing.dart';
 import 'screens/location_calculation_settings.dart';
+import 'package:provider/provider.dart';
+
+import 'screens/tracker_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,10 +51,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider<AlAdhanApiBloc>(
       create: (context) => AlAdhanApiBloc(apiRepository: ApiRepository()),
-      child: MaterialApp(
-        home: LocationCalculationController(),
-        theme: ThemeData.dark(),
-      ),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => TrackerController()),
+        ],
+        child: MaterialApp(
+            home: LocationCalculationController(),
+            theme: ThemeData.dark(),
+        ),
+      )
     );
   }
 }

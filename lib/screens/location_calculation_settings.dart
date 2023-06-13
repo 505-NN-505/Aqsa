@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/al_adhan_api.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/al_adhan_api/bloc/al_adhan_api_bloc.dart';
 import 'package:aqsa_muslim_prayer_assistant/screens/g_navigation_bar.dart';
-import 'package:aqsa_muslim_prayer_assistant/screens/location_widget.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
