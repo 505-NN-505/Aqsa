@@ -4,7 +4,7 @@ import 'package:aqsa_muslim_prayer_assistant/screens/location_calculation_settin
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import 'SettingsPage.dart';
+import 'settings_page.dart';
 import 'Timepage.dart';
 import 'tracker_page.dart';
 
