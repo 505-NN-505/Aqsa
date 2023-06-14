@@ -73,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       children: [
         Padding(
-            padding: EdgeInsets.all(25),
+            padding: EdgeInsets.all(55),
             child: Image.asset(
               'assets/tools.png',
             ),
