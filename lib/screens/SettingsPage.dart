@@ -70,184 +70,187 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-            padding: EdgeInsets.all(25),
-            child: Image.asset(
-              'assets/tools.png',
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 30),
+      child: Column(
+        children: [
+          Padding(
+              padding: EdgeInsets.all(25),
+              child: Image.asset(
+                'assets/tools.png',
+              ),
             ),
-          ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  enabled: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  title: Text(
-                    'Your Location',
-                  ),
-                  minVerticalPadding: 10,
-                  subtitle: Text(
-                    'Please select your district in Bangladesh.',
-                  ),
-                  titleTextStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
-                  child: DropdownSearch<District>(
-                    popupProps: PopupProps.bottomSheet(
-                      searchDelay: Duration(seconds: 0),
-                      showSearchBox: true,
+          Padding(
+            padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    enabled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    asyncItems: (String filter) => fetchDistricts(),
-                    itemAsString: (District d) => d.name ?? "Dhaka",
-                    onChanged: (District? data) {
-                      location = data;
-                    },
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        labelText: "District",
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.blue.withOpacity(0.8),
-                            width: 2,
+                    contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    title: Text(
+                      'Your Location',
+                    ),
+                    minVerticalPadding: 10,
+                    subtitle: Text(
+                      'Please select your district in Bangladesh.',
+                    ),
+                    titleTextStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+                    child: DropdownSearch<District>(
+                      popupProps: PopupProps.bottomSheet(
+                        searchDelay: Duration(seconds: 0),
+                        showSearchBox: true,
+                      ),
+                      asyncItems: (String filter) => fetchDistricts(),
+                      itemAsString: (District d) => d.name ?? "Dhaka",
+                      onChanged: (District? data) {
+                        location = data;
+                      },
+                      dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          labelText: "District",
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue.withOpacity(0.8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.8),
-                            width: 2,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white.withOpacity(0.8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  enabled: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+          Padding(
+            padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    enabled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    contentPadding: EdgeInsets.all(10),
+                    title: Text(
+                      'Prayer Time Calculation Method',
+                    ),
+                    minVerticalPadding: 10,
+                    subtitle: Text(
+                      'Please select the prayer time calculation method based on your country.',
+                    ),
+                    titleTextStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  contentPadding: EdgeInsets.all(10),
-                  title: Text(
-                    'Prayer Time Calculation Method',
-                  ),
-                  minVerticalPadding: 10,
-                  subtitle: Text(
-                    'Please select the prayer time calculation method based on your country.',
-                  ),
-                  titleTextStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
-                  child: Column(
-                    children: [
-                      DropdownSearch<String>(
-                        popupProps: PopupProps.bottomSheet(
-                          constraints: const BoxConstraints(maxHeight: 220),
-                        ),
-                        items: [
-                          "University of Islamic Sciences, Karachi",
-                          "Muslim World League",
-                          "Islamic Society of North America",
-                          "Egyptian General Authority of Survey"
-                        ],
-                        selectedItem: "University of Islamic Sciences, Karachi",
-                        onChanged: (String? data) {
-                          calcMethod = calcMap[data]!;
-                        },
-                        dropdownDecoratorProps: DropDownDecoratorProps(
-                          dropdownSearchDecoration: InputDecoration(
-                            labelText: "Calculation Method",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue.withOpacity(0.8),
-                                width: 2,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+                    child: Column(
+                      children: [
+                        DropdownSearch<String>(
+                          popupProps: PopupProps.bottomSheet(
+                            constraints: const BoxConstraints(maxHeight: 220),
+                          ),
+                          items: [
+                            "University of Islamic Sciences, Karachi",
+                            "Muslim World League",
+                            "Islamic Society of North America",
+                            "Egyptian General Authority of Survey"
+                          ],
+                          selectedItem: "University of Islamic Sciences, Karachi",
+                          onChanged: (String? data) {
+                            calcMethod = calcMap[data]!;
+                          },
+                          dropdownDecoratorProps: DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              labelText: "Calculation Method",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue.withOpacity(0.8),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white.withOpacity(0.8),
-                                width: 2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.8),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      DropdownSearch<String>(
-                        popupProps: PopupProps.bottomSheet(
-                          constraints: const BoxConstraints(maxHeight: 120),
+                        SizedBox(
+                          height: 10,
                         ),
-                        items: [
-                          "Hanafi",
-                          "Shafi",
-                        ],
-                        selectedItem: "Shafi",
-                        onChanged: (String? data) {
-                          asrCalculation = asrMap[data]!;
-                        },
-                        dropdownDecoratorProps: DropDownDecoratorProps(
-                          dropdownSearchDecoration: InputDecoration(
-                            labelText: "Asr Method",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue.withOpacity(0.8),
-                                width: 2,
+                        DropdownSearch<String>(
+                          popupProps: PopupProps.bottomSheet(
+                            constraints: const BoxConstraints(maxHeight: 120),
+                          ),
+                          items: [
+                            "Hanafi",
+                            "Shafi",
+                          ],
+                          selectedItem: "Shafi",
+                          onChanged: (String? data) {
+                            asrCalculation = asrMap[data]!;
+                          },
+                          dropdownDecoratorProps: DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              labelText: "Asr Method",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue.withOpacity(0.8),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white.withOpacity(0.8),
-                                width: 2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.8),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
